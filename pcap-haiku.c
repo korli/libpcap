@@ -87,7 +87,7 @@ pcap_read_haiku(pcap_t* handle, int maxPackets _U_, pcap_handler callback,
 	struct pcap_haiku* handlep = (struct pcap_haiku*)handle->priv;
 	// BPF is 32-bit, which is more than sufficient for any realistic
 	// packet size.
-	if (bytesReceived > UINT32_MAX)
+	if (bytesReceived > INT32_MAX)
 		goto drop;
 	// At this point, if the recvfrom() call populated its struct sockaddr
 	// and socklen_t arguments, it would be the right time to drop packets
