@@ -87,7 +87,7 @@ pcap_read_haiku(pcap_t* handle, int maxPackets _U_, pcap_handler callback,
 	struct pcap_haiku* handlep = (struct pcap_haiku*)handle->priv;
 	// BPF is 32-bit, which is more than sufficient for any realistic
 	// packet size.
-	if (bytesReceived > UINT32_MAX)
+	if (bytesReceived > INT32_MAX)
 		goto drop;
 	// At this point, if the recvfrom() call populated its struct sockaddr
 	// and socklen_t arguments, it would be the right time to drop packets
@@ -124,7 +124,7 @@ pcap_read_haiku(pcap_t* handle, int maxPackets _U_, pcap_handler callback,
 	                (bpf_u_int32)handle->snapshot;
 	header.len = wireLength;
 	header.ts.tv_usec = ts % 1000000;
-	header.ts.tv_sec = ts / 1000000;
+	header.ts.tv_sec = (time_t)(ts / 1000000);
 
 	/* Call the user supplied callback function */
 	callback(userdata, &header, buffer);
