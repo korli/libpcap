@@ -25,17 +25,6 @@ jobs:
           version: ${{ matrix.config.version }}
           architecture: ${{ matrix.config.architecture }}
           run: |
-            ssh user@localhost "pkgman update -y cmd:gcc cmd:make" &&
-            export CFLAGS=-D_BSD_SOURCE &&
-            if [[ `uname -m` == BePC ]]; then
-              setarch x86 autoreconf -fi
-              setarch x86 ./configure --enable-shared
-              setarch x86 make
-            else
-              autoreconf -fi
-              ./configure --enable-shared
-              make
-            fi
             ssh user@localhost "chmod 777 /tmp/; pkgman update -y cmd:git cmd:autoconf cmd:cmake cmd:make cmd:clang_16 cmd:ld.lld>=16" &&
             if [[ `uname -m` == BePC ]]; then
               ssh user@localhost "pkgman update -y cmd:gcc_x86 gcc_x86_syslibs_devel" &&
