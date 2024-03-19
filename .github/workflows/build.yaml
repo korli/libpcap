@@ -25,7 +25,7 @@ jobs:
           version: ${{ matrix.config.version }}
           architecture: ${{ matrix.config.architecture }}
           run: |
-            ssh user@localhost "chmod 777 /tmp/; pkgman update -y cmd:git cmd:autoconf cmd:cmake cmd:make cmd:clang_16 cmd:ld.lld>=16" &&
+            ssh user@localhost "chmod 777 /tmp/; pkgman update -y cmd:git cmd:autoconf cmd:cmake cmd:make cmd:clang_17 cmd:ld.lld>=17" &&
             if [[ `uname -m` == BePC ]]; then
               ssh user@localhost "pkgman update -y cmd:gcc_x86 gcc_x86_syslibs_devel" &&
               setarch x86 ./build_matrix.sh
